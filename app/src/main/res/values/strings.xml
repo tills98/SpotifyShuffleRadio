@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">Spotify Shuffle Radio</string>
+
+    <string name="title_activity_main">Spotify Shuffle Radio</string>
+    <string name="title_activity_spotify_login">Spotify Login</string>
+
+    <!-- Spotify login status -->
+    <string name="spotify_logged_in">Angemeldet</string>
+    <string name="spotify_not_logged_in">Nicht angemeldet</string>
+    <string name="spotify_login_failed">Fehler bei der Anmeldung!</string>
+    <string name="spotify_not_installed">Nicht installiert</string>
+    <string name="spotify_offline">Keine Internetverbindung</string>
+    <string name="spotify_status_reload">Aktualisieren</string>
+    <string name="spotify_playlists_reload">Aktualisieren</string>
+
+    <!-- Titel -->
+    <string name="title_settings">Einstellungen</string>
+    <string name="title_playlists">Playlists</string>
+
+    <!-- Einstellungen -->
+    <string name="settings_listener_switch">App aktivieren</string>
+    <string name="settings_spotify_status">Spotify Status</string>
+
+    <!-- Pfade -->
+    <string name="preferences_settings">de.till_s.spotifyshuffleradio.PREFERENCES_SETTINGS</string>
+    <string name="preferences_app_state">app_state</string>
+    <string name="preferences_active_playlist">active_playlist</string>
+    <string name="preferences_playlist_timestamp">playlist_timestamp</string>
+    <string name="preferences_last_spotify_login">last_spotify_login</string>
+    <string name="preferences_last_spotify_userid">last_spotify_userid</string>
+    <string name="preferences_last_spotify_username">last_spotify_username</string>
+
+    <!-- Toast Errors -->
+    <string name="error_select_something">Bitte wähle eine Playlist aus!</string>
+
+    <!-- Ask screen -->
+    <string name="ask_title">Spotify Shuffle Radio starten?</string>
+    <string name="ask_yes_button">Ja</string>
+    <string name="ask_no_button">Nein</string>
+    <string name="ask_description">Zum Starten berühren</string>
+</resources>
