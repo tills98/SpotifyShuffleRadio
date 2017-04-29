@@ -39,4 +39,7 @@
     <string name="ask_yes_button">Ja</string>
     <string name="ask_no_button">Nein</string>
     <string name="ask_description">Zum Starten berühren</string>
+    <string name="settings_listen_everytime">Vor dem Start fragen</string>
+    <string name="preferences_ask_everytime">ask_everytime</string>
+    <string name="spotify_player_error">Spotify konnte nicht initialisiert werden!</string>
 </resources>

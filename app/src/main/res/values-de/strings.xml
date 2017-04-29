@@ -20,4 +20,6 @@
     <string name="title_activity_spotify_login">Spotify Login</string>
     <string name="title_playlists">Playlists</string>
     <string name="title_settings">Einstellungen</string>
+    <string name="settings_listen_everytime">Vor dem Start fragen</string>
+    <string name="spotify_player_error">Spotify konnte nicht initialisiert werden!</string>
 </resources>

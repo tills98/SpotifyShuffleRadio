@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements SpotifyPlayer.Not
     TextView textViewSettingsSpotifyStatus;
     TextView textViewSpotifyStatus;
     Switch switchAppActive;
+    Switch switchAskEverytime;
     Spinner spinnerPlaylists;
     Button reloadSpotifyButton;
     Button reloadSpotifyPlaylistsButton;
@@ -98,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements SpotifyPlayer.Not
 
         textViewSpotifyStatus = (TextView) findViewById(R.id.textViewSpotifyStatus);
         switchAppActive = (Switch) findViewById(R.id.switchAppActive);
+        switchAskEverytime = (Switch) findViewById(R.id.switchListenEverytime);
         spinnerPlaylists = (Spinner) findViewById(R.id.spinnerPlaylists);
         reloadSpotifyButton = (Button) findViewById(R.id.reloadSpotifyButton);
         reloadSpotifyPlaylistsButton = (Button) findViewById(R.id.reloadSpotifyPlaylistsButton);
@@ -164,11 +166,17 @@ public class MainActivity extends AppCompatActivity implements SpotifyPlayer.Not
                     @Override
                     public void onError(Throwable throwable) {
                         Log.e(TAG, "Could not initialize player: " + throwable.getMessage());
+                        Toast.makeText(getBaseContext(), getString(R.string.spotify_player_error), Toast.LENGTH_SHORT).show();
                     }
 
                 });
             }
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 
     @Override
@@ -235,12 +243,23 @@ public class MainActivity extends AppCompatActivity implements SpotifyPlayer.Not
     }
 
     private void showSettings() {
-        // Show settings
+        // App active
         switchAppActive.setChecked(Settings.APP_ACTIVE);
         switchAppActive.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Settings.APP_ACTIVE = isChecked;
+                saveSettings();
+            }
+
+        });
+
+        // Ask everytime
+        switchAskEverytime.setChecked(Settings.ASK_EVERYTIME);
+        switchAskEverytime.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Settings.ASK_EVERYTIME = isChecked;
                 saveSettings();
             }
 

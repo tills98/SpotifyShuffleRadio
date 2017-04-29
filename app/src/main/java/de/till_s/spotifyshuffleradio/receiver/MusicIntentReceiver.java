@@ -7,7 +7,6 @@ import android.util.Log;
 
 import de.till_s.spotifyshuffleradio.Settings;
 import de.till_s.spotifyshuffleradio.helper.spotify.SpotifyHelper;
-import de.till_s.spotifyshuffleradio.service.AskService;
 
 /**
  * Created by Till on 27.04.2017.
@@ -31,7 +30,13 @@ public class MusicIntentReceiver extends BroadcastReceiver {
                         Log.i("MusicIntentReceiver", "Aux detected");
 
                         if (Settings.LAST_SPOTIFY_USERNAME != null && Settings.ACTIVE_PLAYLIST != null) {
-                            SpotifyHelper.showNotification(context);
+
+                            if (Settings.ASK_EVERYTIME) {
+                                SpotifyHelper.showNotification(context);
+                            } else {
+                                SpotifyHelper.openSpotify(context, Settings.LAST_SPOTIFY_USERNAME, Settings.ACTIVE_PLAYLIST, true);
+                            }
+
                         }
 
                         break;
