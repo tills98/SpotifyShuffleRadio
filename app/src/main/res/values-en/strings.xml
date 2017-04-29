@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Spotify Shuffle Radio</string>
+    <string name="title_playlists">Your playlists</string>
+    <string name="title_activity_spotify_login">Spotify Login</string>
+    <string name="title_activity_main">Spotify Shuffle Radio</string>
+    <string name="spotify_playlists_reload">Refresh</string>
+    <string name="spotify_status_reload">Refresh</string>
+    <string name="spotify_offline">No internet connection</string>
+    <string name="spotify_not_logged_in">Not logged in</string>
+    <string name="spotify_not_installed">Not installed</string>
+    <string name="spotify_login_failed">Login failed</string>
+    <string name="spotify_logged_in">Logged in</string>
+    <string name="spinner_selected_saved">Your selected playlist has been saved.</string>
+    <string name="spinner_selected_error">Please select a playlist</string>
+    <string name="settings_spotify_status">Spotify status</string>
+    <string name="settings_listener_switch">Activate app</string>
+    <string name="ask_yes_button">Yes</string>
+    <string name="ask_title">Start Spotify Shuffle Radio?</string>
+    <string name="ask_no_button">No</string>
+    <string name="ask_description">Press to play your playlist</string>
+    <string name="title_settings">Settings</string>
+</resources>

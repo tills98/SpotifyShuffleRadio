@@ -22,16 +22,17 @@
     <string name="settings_spotify_status">Spotify Status</string>
 
     <!-- Pfade -->
-    <string name="preferences_settings">de.till_s.spotifyshuffleradio.PREFERENCES_SETTINGS</string>
-    <string name="preferences_app_state">app_state</string>
-    <string name="preferences_active_playlist">active_playlist</string>
-    <string name="preferences_playlist_timestamp">playlist_timestamp</string>
-    <string name="preferences_last_spotify_login">last_spotify_login</string>
-    <string name="preferences_last_spotify_userid">last_spotify_userid</string>
-    <string name="preferences_last_spotify_username">last_spotify_username</string>
+    <string name="preferences_settings" translatable="false">de.till_s.spotifyshuffleradio.PREFERENCES_SETTINGS</string>
+    <string name="preferences_app_state" translatable="false">app_state</string>
+    <string name="preferences_active_playlist" translatable="false">active_playlist</string>
+    <string name="preferences_playlist_timestamp" translatable="false">playlist_timestamp</string>
+    <string name="preferences_last_spotify_login" translatable="false">last_spotify_login</string>
+    <string name="preferences_last_spotify_userid" translatable="false">last_spotify_userid</string>
+    <string name="preferences_last_spotify_username" translatable="false">last_spotify_username</string>
 
     <!-- Toast Errors -->
-    <string name="error_select_something">Bitte wähle eine Playlist aus!</string>
+    <string name="spinner_selected_error">Bitte wähle eine Playlist aus!</string>
+    <string name="spinner_selected_saved">Deine Auswahl wurde gespeichert!</string>
 
     <!-- Ask screen -->
     <string name="ask_title">Spotify Shuffle Radio starten?</string>

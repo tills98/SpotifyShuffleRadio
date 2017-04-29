@@ -86,8 +86,8 @@
 
     <Spinner
         android:id="@+id/spinnerPlaylists"
-        android:layout_width="338dp"
-        android:layout_height="47dp"
+        android:layout_width="match_parent"
+        android:layout_height="@android:dimen/app_icon_size"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
