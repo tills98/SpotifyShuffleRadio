@@ -9,25 +9,30 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
+    <!--
     <receiver
-        android:name=".BootBroadcastReceiver"
+        android:name=".receiver.BootBroadcastReceiver"
         android:enabled="true"
         android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
         <intent-filter>
-            <action android:name="android.intent.action.BOOT_COMPLETED" />
-
             <category android:name="android.intent.category.DEFAULT" />
+            <action android:name="android.intent.action.BOOT_COMPLETED" />
+            <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
+            <action android:name="com.htc.intent.action.QUICKBOOT_POWERON"/>
         </intent-filter>
     </receiver>
-    <receiver android:name=".MusicIntentReceiver">
+    -->
+
+    <receiver android:name=".receiver.MusicIntentReceiver">
         <intent-filter>
             <action android:name="android.intent.action.ACTION_HEADSET_PLUG" />
         </intent-filter>
     </receiver>
 
     <service
-        android:name=".MusicService"
+        android:name=".service.MusicService"
         android:enabled="true" />
 
     <application
@@ -39,20 +44,38 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:showOnLockScreen="true"
-            android:label="@string/title_activity_main">
+            android:label="@string/title_activity_main"
+            android:showOnLockScreen="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <service
-            android:name=".NotificationResultService"
-            android:enabled="true"
+        <activity
+            android:name=".OverlayActivity"
             android:showOnLockScreen="true"
-            android:exported="true"></service>
+            android:theme="@style/PopupTheme" />
+
+        <service android:name=".service.OverlayService" />
+        <service
+            android:name=".service.BootService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <receiver
+            android:name=".receiver.BootReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

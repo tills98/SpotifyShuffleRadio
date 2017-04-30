@@ -3,7 +3,6 @@ package de.till_s.spotifyshuffleradio;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -42,7 +41,7 @@ import de.till_s.spotifyshuffleradio.helper.spotify.SpotifyAuthHelper;
 import de.till_s.spotifyshuffleradio.helper.spotify.SpotifyHelper;
 import de.till_s.spotifyshuffleradio.helper.spotify.SpotifyPlaylistContract;
 import de.till_s.spotifyshuffleradio.helper.tasks.SpotifyPlaylistLoader;
-import de.till_s.spotifyshuffleradio.receiver.MusicIntentReceiver;
+import de.till_s.spotifyshuffleradio.service.BootService;
 import de.till_s.spotifyshuffleradio.utils.SpotifyAppData;
 import de.till_s.spotifyshuffleradio.utils.Utils;
 import kaaes.spotify.webapi.android.SpotifyApi;
@@ -111,31 +110,26 @@ public class MainActivity extends AppCompatActivity implements SpotifyPlayer.Not
                 if (playlistMap != null && position != 0) {
                     List<String> keys = new ArrayList<String>(playlistMap.keySet());
 
-                    String playlistID = keys.get(position);
-
-                    Settings.ACTIVE_PLAYLIST = playlistID;
+                    Settings.ACTIVE_PLAYLIST = keys.get(position);
                     saveSettings();
 
-                    Toast.makeText(getBaseContext(), getString(R.string.spinner_selected_saved), Toast.LENGTH_LONG);
+                    Toast.makeText(getBaseContext(), getString(R.string.spinner_selected_saved), Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                Toast.makeText(getBaseContext(), getString(R.string.spinner_selected_error), Toast.LENGTH_LONG);
+                Toast.makeText(getBaseContext(), getString(R.string.spinner_selected_error), Toast.LENGTH_LONG).show();
             }
 
         });
 
-        if (!MusicIntentReceiver.REGISTERD) {
-            MusicIntentReceiver myReciever = new MusicIntentReceiver();
-            IntentFilter filter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
-            registerReceiver(myReciever, filter);
-        }
+        Intent bootServiceIntent = new Intent(this, BootService.class);
+        startService(bootServiceIntent);
+
+        Log.i(TAG, "Create");
 
         init();
-
-
     }
 
     @Override
@@ -176,16 +170,20 @@ public class MainActivity extends AppCompatActivity implements SpotifyPlayer.Not
 
     @Override
     protected void onPause() {
+        Log.i(TAG, "Pause");
         super.onPause();
     }
 
     @Override
     protected void onResume() {
+        Log.i(TAG, "Resume");
         super.onResume();
     }
 
     @Override
     protected void onDestroy() {
+        Log.i(TAG, "Destroy");
+
         // Destroy database connections
         DbHelper.getInstance().destroy();
 
@@ -280,7 +278,7 @@ public class MainActivity extends AppCompatActivity implements SpotifyPlayer.Not
         spotifyService.getMe(new Callback<UserPrivate>() {
             @Override
             public void success(UserPrivate userPrivate, Response response) {
-                Settings.LAST_SPOTIFY_USERNAME = spotifyClientUri = userPrivate.uri;
+                Settings.LAST_SPOTIFY_USERURI = spotifyClientUri = userPrivate.uri;
                 saveSettings();
             }
 

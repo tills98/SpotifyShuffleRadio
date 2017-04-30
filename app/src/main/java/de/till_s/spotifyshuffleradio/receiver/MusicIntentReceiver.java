@@ -3,6 +3,7 @@ package de.till_s.spotifyshuffleradio.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.util.Log;
 
 import de.till_s.spotifyshuffleradio.Settings;
@@ -29,12 +30,15 @@ public class MusicIntentReceiver extends BroadcastReceiver {
                     case 1:
                         Log.i("MusicIntentReceiver", "Aux detected");
 
-                        if (Settings.LAST_SPOTIFY_USERNAME != null && Settings.ACTIVE_PLAYLIST != null) {
+                        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+
+                        if (Settings.LAST_SPOTIFY_USERURI != null && Settings.ACTIVE_PLAYLIST != null && audioManager.isWiredHeadsetOn()) {
 
                             if (Settings.ASK_EVERYTIME) {
-                                SpotifyHelper.showNotification(context);
+//                                SpotifyHelper.showNotification(context);
+                                SpotifyHelper.showPopup(context);
                             } else {
-                                SpotifyHelper.openSpotify(context, Settings.LAST_SPOTIFY_USERNAME, Settings.ACTIVE_PLAYLIST, true);
+                                SpotifyHelper.openSpotify(context, Settings.LAST_SPOTIFY_USERURI, Settings.ACTIVE_PLAYLIST, true);
                             }
 
                         }

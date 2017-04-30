@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.IBinder;
 import android.os.PowerManager;
-import android.support.annotation.IntDef;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,8 +59,8 @@ public class AskService extends Service {
             public void onClick(View v) {
                 Settings.loadSettings(getApplicationContext());
 
-                if (Settings.LAST_SPOTIFY_USERNAME != null && Settings.ACTIVE_PLAYLIST != null) {
-                    SpotifyHelper.openSpotify(getApplicationContext(), Settings.LAST_SPOTIFY_USERNAME, Settings.ACTIVE_PLAYLIST, true);
+                if (Settings.LAST_SPOTIFY_USERURI != null && Settings.ACTIVE_PLAYLIST != null) {
+                    SpotifyHelper.openSpotify(getApplicationContext(), Settings.LAST_SPOTIFY_USERURI, Settings.ACTIVE_PLAYLIST, true);
                 }
 
                 Log.i(TAG, "Start Spotify");
