@@ -7,13 +7,13 @@ import android.media.AudioManager;
 import android.util.Log;
 
 import de.till_s.spotifyshuffleradio.Settings;
-import de.till_s.spotifyshuffleradio.helper.spotify.SpotifyHelper;
+import de.till_s.spotifyshuffleradio.helper.spotify.utils.SpotifyUtils;
 
 /**
  * Created by Till on 27.04.2017.
  */
 
-public class MusicIntentReceiver extends BroadcastReceiver {
+public class HeadsetReceiver extends BroadcastReceiver {
 
     public static boolean REGISTERD = false;
 
@@ -28,17 +28,17 @@ public class MusicIntentReceiver extends BroadcastReceiver {
                 switch (state) {
                     // Headset plugged
                     case 1:
-                        Log.i("MusicIntentReceiver", "Aux detected");
+                        Log.i("HeadsetReceiver", "Aux detected");
 
                         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
 
                         if (Settings.LAST_SPOTIFY_USERURI != null && Settings.ACTIVE_PLAYLIST != null && audioManager.isWiredHeadsetOn()) {
 
                             if (Settings.ASK_EVERYTIME) {
-//                                SpotifyHelper.showNotification(context);
-                                SpotifyHelper.showPopup(context);
+//                                SpotifyUtils.showNotification(context);
+                                SpotifyUtils.showPopup(context);
                             } else {
-                                SpotifyHelper.openSpotify(context, Settings.LAST_SPOTIFY_USERURI, Settings.ACTIVE_PLAYLIST, true);
+                                SpotifyUtils.openSpotify(context, Settings.LAST_SPOTIFY_USERURI, Settings.ACTIVE_PLAYLIST, true);
                             }
 
                         }
@@ -47,11 +47,11 @@ public class MusicIntentReceiver extends BroadcastReceiver {
 
                     // Headset unplugged
                     case 0:
-                        Log.i("MusicIntentReceiver", "Aux unplugged");
+                        Log.i("HeadsetReceiver", "Aux unplugged");
                         // TODO: Check playback state
                         // com.spotify.music.playbackstatechanged
 
-                        //SpotifyHelper.togglePlay(context);
+                        //SpotifyUtils.togglePlay(context);
 
                         break;
                     default:

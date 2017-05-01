@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 
-import de.till_s.spotifyshuffleradio.OverlayActivity;
+import de.till_s.spotifyshuffleradio.activities.OverlayActivity;
 
 public class OverlayService extends Service {
 

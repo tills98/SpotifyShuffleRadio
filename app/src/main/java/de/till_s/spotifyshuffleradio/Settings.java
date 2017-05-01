@@ -3,6 +3,8 @@ package de.till_s.spotifyshuffleradio;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import de.till_s.spotifyshuffleradio.receiver.HeadsetReceiver;
+
 /**
  * Settings storage from key-value preferences
  *
@@ -12,13 +14,13 @@ public final class Settings {
 
     /**
      * App will listening for {@see Intent#ACTION_HEADSET_PLUG}
-     * @see de.till_s.spotifyshuffleradio.receiver.MusicIntentReceiver
+     * @see HeadsetReceiver
      */
     public static boolean APP_ACTIVE = false;
 
     /**
      * App will ask you for every headset plug
-     * @see de.till_s.spotifyshuffleradio.receiver.MusicIntentReceiver
+     * @see HeadsetReceiver
      */
     public static boolean ASK_EVERYTIME = true;
 

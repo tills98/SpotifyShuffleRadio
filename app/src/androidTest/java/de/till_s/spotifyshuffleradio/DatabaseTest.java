@@ -11,9 +11,9 @@ import org.junit.runner.RunWith;
 
 import java.util.Map;
 
-import de.till_s.spotifyshuffleradio.helper.spotify.SpotifyPlaylistContract;
 import de.till_s.spotifyshuffleradio.helper.db.DbHelper;
 import de.till_s.spotifyshuffleradio.helper.db.DbUtils;
+import de.till_s.spotifyshuffleradio.helper.spotify.db.SpotifyPlaylistContract;
 
 import static org.junit.Assert.assertEquals;
 

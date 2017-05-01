@@ -11,7 +11,7 @@ import android.widget.Button;
 
 import de.till_s.spotifyshuffleradio.R;
 import de.till_s.spotifyshuffleradio.Settings;
-import de.till_s.spotifyshuffleradio.helper.spotify.SpotifyHelper;
+import de.till_s.spotifyshuffleradio.helper.spotify.utils.SpotifyUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,8 +35,9 @@ public class OverlayFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (Settings.LAST_SPOTIFY_USERURI != null && Settings.ACTIVE_PLAYLIST != null) {
-                    SpotifyHelper.openSpotify(context, Settings.LAST_SPOTIFY_USERURI, Settings.ACTIVE_PLAYLIST, true);
+                    SpotifyUtils.openSpotify(context, Settings.LAST_SPOTIFY_USERURI, Settings.ACTIVE_PLAYLIST, true);
                 }
+
                 getActivity().finish();
             }
 

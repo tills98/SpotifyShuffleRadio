@@ -1,4 +1,4 @@
-package de.till_s.spotifyshuffleradio.helper.spotify;
+package de.till_s.spotifyshuffleradio.helper.spotify.db;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

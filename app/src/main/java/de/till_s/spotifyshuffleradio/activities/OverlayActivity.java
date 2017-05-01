@@ -1,4 +1,4 @@
-package de.till_s.spotifyshuffleradio;
+package de.till_s.spotifyshuffleradio.activities;
 
 import android.app.Activity;
 import android.app.Fragment;

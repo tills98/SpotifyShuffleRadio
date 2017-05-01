@@ -7,7 +7,7 @@ import android.util.Log;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.till_s.spotifyshuffleradio.helper.spotify.SpotifyPlaylistContract;
+import de.till_s.spotifyshuffleradio.helper.spotify.db.SpotifyPlaylistContract;
 
 /**
  * Created by Till on 24.04.2017.

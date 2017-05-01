@@ -6,13 +6,13 @@ import android.content.IntentFilter;
 import android.os.IBinder;
 import android.util.Log;
 
-import de.till_s.spotifyshuffleradio.receiver.MusicIntentReceiver;
+import de.till_s.spotifyshuffleradio.receiver.HeadsetReceiver;
 
 public class BootService extends Service {
 
     private static final String TAG = BootService.class.getSimpleName();
 
-    private static MusicIntentReceiver musicIntentReceiver = null;
+    private static HeadsetReceiver headsetReceiver = null;
 
     public BootService() {
     }
@@ -24,24 +24,24 @@ public class BootService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.i(TAG, "Try to register MusicIntentReceiver");
+        Log.i(TAG, "Try to register HeadsetReceiver");
 
-        if (musicIntentReceiver == null && !MusicIntentReceiver.REGISTERD) {
-            musicIntentReceiver = new MusicIntentReceiver();
+        if (headsetReceiver == null && !HeadsetReceiver.REGISTERD) {
+            headsetReceiver = new HeadsetReceiver();
 
             IntentFilter filter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
-            registerReceiver(musicIntentReceiver, filter);
+            registerReceiver(headsetReceiver, filter);
 
-            MusicIntentReceiver.REGISTERD = true;
+            HeadsetReceiver.REGISTERD = true;
 
-            Log.i(TAG, "MusicIntentReceiver registered");
+            Log.i(TAG, "HeadsetReceiver registered");
         }
 
-        return super.onStartCommand(intent, flags, startId);
+        return Service.START_STICKY;
     }
 
-    public static MusicIntentReceiver getMusicIntentReceiver() {
-        return musicIntentReceiver;
+    public static HeadsetReceiver getHeadsetReceiver() {
+        return headsetReceiver;
     }
 
 }

@@ -3,7 +3,7 @@ package de.till_s.spotifyshuffleradio.helper.db;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 
-import de.till_s.spotifyshuffleradio.helper.spotify.SpotifyPlaylistContract;
+import de.till_s.spotifyshuffleradio.helper.spotify.db.SpotifyPlaylistContract;
 
 /**
  * Created by Till on 24.04.2017.

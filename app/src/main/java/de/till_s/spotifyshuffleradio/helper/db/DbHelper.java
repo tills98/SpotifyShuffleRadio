@@ -4,8 +4,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import de.till_s.spotifyshuffleradio.helper.spotify.SpotifyPlaylistContract;
-import de.till_s.spotifyshuffleradio.helper.spotify.SpotifyPlaylistDbHelper;
+import de.till_s.spotifyshuffleradio.helper.spotify.db.SpotifyPlaylistContract;
+import de.till_s.spotifyshuffleradio.helper.spotify.db.SpotifyPlaylistDbHelper;
 
 /**
  * Created by Till on 24.04.2017.
