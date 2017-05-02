@@ -14,6 +14,7 @@ import java.util.Map;
 import de.till_s.spotifyshuffleradio.helper.db.DbHelper;
 import de.till_s.spotifyshuffleradio.helper.db.DbUtils;
 import de.till_s.spotifyshuffleradio.helper.spotify.db.SpotifyPlaylistContract;
+import de.till_s.spotifyshuffleradio.utils.Settings;
 
 import static org.junit.Assert.assertEquals;
 

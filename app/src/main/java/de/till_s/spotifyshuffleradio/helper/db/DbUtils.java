@@ -54,6 +54,12 @@ public final class DbUtils {
         return items;
     }
 
+    /**
+     * Delete all playlists
+     *
+     * @param context Android context
+     * @return Amount of deleted playlists
+     */
     public static int deleteAllPlaylists(Context context) {
         DbHelper.getInstance().createDatabaseHandler(context);
 

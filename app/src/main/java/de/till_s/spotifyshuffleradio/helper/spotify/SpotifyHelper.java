@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.spotify.sdk.android.authentication.AuthenticationClient;
@@ -24,12 +23,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.till_s.spotifyshuffleradio.R;
-import de.till_s.spotifyshuffleradio.Settings;
 import de.till_s.spotifyshuffleradio.helper.spotify.tasks.SpotifyPlaylistTask;
+import de.till_s.spotifyshuffleradio.utils.Settings;
 import de.till_s.spotifyshuffleradio.utils.SpotifyAppData;
 import de.till_s.spotifyshuffleradio.utils.Utils;
 import kaaes.spotify.webapi.android.SpotifyApi;
 import kaaes.spotify.webapi.android.SpotifyService;
+import kaaes.spotify.webapi.android.models.UserPrivate;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -48,7 +48,6 @@ public class SpotifyHelper implements SpotifyPlayer.NotificationCallback, Connec
     private Context context = null;
 
     private Activity loginActivity = null;
-    private final TextView spotifyStatusTextView;
 
     private boolean spotifyInstalled = false;
 
@@ -66,13 +65,11 @@ public class SpotifyHelper implements SpotifyPlayer.NotificationCallback, Connec
 
     private Map<String, String> playlistCache = null;
 
-    public SpotifyHelper(Activity loginActivity, Context context, TextView spotifyStatusTextView) {
+    public SpotifyHelper(Activity loginActivity, Context context) {
         this.loginActivity = loginActivity;
         this.context = context;
 
         this.spotifyInstalled = Utils.isPackageInstalled("com.spotify.music", context.getPackageManager());
-
-        this.spotifyStatusTextView = spotifyStatusTextView;
 
         this.playlistCache = new HashMap<>();
     }
@@ -81,16 +78,27 @@ public class SpotifyHelper implements SpotifyPlayer.NotificationCallback, Connec
         return spotifyInstalled;
     }
 
+    /**
+     * Reload spotify login
+     */
     public void reloadLogin() {
         Log.i(TAG, "reloadLogin");
         init();
     }
 
+    /**
+     * Load all playlists into a {@see Spinner}
+     *
+     * @param spinner Spinner which will contains all playlists
+     */
     public void reloadPlaylists(Spinner spinner) {
         Log.i(TAG, "reloadPlaylists");
-        loadPlaylists(spinner, true);
+        loadPlaylists(spinner);
     }
 
+    /**
+     * Initialize the helper
+     */
     public void init() {
         if (Utils.getNetworkConnectivity(context) != Connectivity.OFFLINE) {
             initSpotifyAuth();
@@ -107,6 +115,9 @@ public class SpotifyHelper implements SpotifyPlayer.NotificationCallback, Connec
 
     }
 
+    /**
+     * Destroy the helper
+     */
     public void destroy() {
 
         // Destroy spotify
@@ -114,13 +125,43 @@ public class SpotifyHelper implements SpotifyPlayer.NotificationCallback, Connec
 
     }
 
+    /**
+     * Called when spotify user is logged in
+     *
+     * @see SpotifyHelper#onLoggedIn()
+     */
     private void postInit() {
         if (Utils.getNetworkConnectivity(context) != Connectivity.OFFLINE) {
             initSpotifyWebAPI();
+
+            loadClientUri();
         }
     }
 
-    public void loadPlaylists(final Spinner spinner, boolean forceReload) {
+    /**
+     * Load spotify client uri
+     */
+    private void loadClientUri() {
+        spotifyWebService.getMe(new Callback<UserPrivate>() {
+            @Override
+            public void success(UserPrivate userPrivate, Response response) {
+                Settings.LAST_SPOTIFY_USERURI = spotifyClientUri = userPrivate.uri;
+                Settings.saveSettings(context);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
+    }
+
+    /**
+     * Load all playlist into a spinner
+     *
+     * @param spinner The spinner which will contain all playlists
+     */
+    public void loadPlaylists(final Spinner spinner) {
         final ArrayAdapter<String> spinnerPlaylistAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item);
         spinnerPlaylistAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -158,14 +199,28 @@ public class SpotifyHelper implements SpotifyPlayer.NotificationCallback, Connec
 
         };
 
-        loadPlaylists(response, forceReload);
+        loadPlaylists(response, Settings.PLAYLIST_TIMESTAMP == -1 || (Utils.getTimestamp() - Settings.PLAYLIST_TIMESTAMP) > 24 * 60 * 60);
     }
 
-    public void loadPlaylists(Callback<Map<String, String>> response, boolean forceReload) {
+    /**
+     * Load all playlists in background with an async task
+     *
+     * @param response    The callback
+     * @param forceReload Force reload all playlists
+     * @see SpotifyPlaylistTask
+     */
+    private void loadPlaylists(Callback<Map<String, String>> response, boolean forceReload) {
         SpotifyPlaylistTask playlistAdapter = new SpotifyPlaylistTask(context, forceReload, spotifyWebService, response);
         playlistAdapter.execute();
     }
 
+    /**
+     * Handle the result from spotify login
+     *
+     * @param requestCode Request code
+     * @param resultCode  Result code
+     * @param data        The data
+     */
     public void handleActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == SpotifyAuthHelper.REQUEST_CODE) {
             AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, data);
@@ -199,11 +254,17 @@ public class SpotifyHelper implements SpotifyPlayer.NotificationCallback, Connec
         }
     }
 
+    /**
+     * Initialize Spotify authentication helper to login an authenticate this wonderful app
+     */
     private void initSpotifyAuth() {
         SpotifyAuthHelper spotifyAuthHelper = new SpotifyAuthHelper();
         spotifyAuthHelper.createAuthRequest(loginActivity);
     }
 
+    /**
+     * Initialize Web API of Spotify
+     */
     private void initSpotifyWebAPI() {
         Log.i(TAG, "initSpotifyWebAPI");
 
@@ -221,19 +282,36 @@ public class SpotifyHelper implements SpotifyPlayer.NotificationCallback, Connec
         }
     }
 
-
+    /**
+     * Called when user is logged in
+     *
+     * @param spotifyLoggedInCallback   The callback
+     */
     public void setSpotifyLoggedInCallback(Callback<Void> spotifyLoggedInCallback) {
         this.spotifyLoggedInCallback = spotifyLoggedInCallback;
     }
 
+    /**
+     * Called when user is offline
+     *
+     * @param spotifyOfflineCallback    The callback
+     */
     public void setSpotifyOfflineCallback(Callback<Void> spotifyOfflineCallback) {
         this.spotifyOfflineCallback = spotifyOfflineCallback;
     }
 
+    /**
+     * Called when spotify login failed
+     *
+     * @param spotifyLoginFailedCallback    The callback
+     */
     public void setSpotifyLoginFailedCallback(Callback<Void> spotifyLoginFailedCallback) {
         this.spotifyLoginFailedCallback = spotifyLoginFailedCallback;
     }
 
+    /**
+     * @return All cached playlists
+     */
     public Map<String, String> getPlaylistCache() {
         return playlistCache;
     }
@@ -241,7 +319,6 @@ public class SpotifyHelper implements SpotifyPlayer.NotificationCallback, Connec
     /**
      * SPOTIFY SDK
      **/
-
 
     @Override
     public void onLoggedIn() {

@@ -23,6 +23,11 @@ public class SpotifyPlaylistDbHelper extends SQLiteOpenHelper {
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + SpotifyPlaylistContract.SpoitfyPlaylistEntry.TABLE_NAME;
 
+    /**
+     * Playlist database helper
+     *
+     * @param context Android context
+     */
     public SpotifyPlaylistDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }

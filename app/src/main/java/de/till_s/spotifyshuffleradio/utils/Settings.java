@@ -1,8 +1,10 @@
-package de.till_s.spotifyshuffleradio;
+package de.till_s.spotifyshuffleradio.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
+import de.till_s.spotifyshuffleradio.R;
 import de.till_s.spotifyshuffleradio.receiver.HeadsetReceiver;
 
 /**
@@ -56,9 +58,11 @@ public final class Settings {
      */
     public static void loadSettings(Context context) {
         SharedPreferences pref = context.getSharedPreferences(context.getString(R.string.preferences_settings), Context.MODE_PRIVATE);
+        SharedPreferences defaultPrefs = PreferenceManager.getDefaultSharedPreferences(context);
 
-        APP_ACTIVE = pref.getBoolean(context.getString(R.string.preferences_app_state), false);
-        ASK_EVERYTIME = pref.getBoolean(context.getString(R.string.preferences_ask_everytime), true);
+        APP_ACTIVE = defaultPrefs.getBoolean(context.getString(R.string.preferences_app_state), false);
+        ASK_EVERYTIME = defaultPrefs.getBoolean(context.getString(R.string.preferences_ask_everytime), true);
+
         ACTIVE_PLAYLIST = pref.getString(context.getString(R.string.preferences_active_playlist), null);
         PLAYLIST_TIMESTAMP = pref.getInt(context.getString(R.string.preferences_playlist_timestamp), -1);
         LAST_SPOTIFY_LOGIN = pref.getInt(context.getString(R.string.preferences_last_spotify_login), -1);
@@ -73,10 +77,13 @@ public final class Settings {
      */
     public static void saveSettings(Context context) {
         SharedPreferences pref = context.getSharedPreferences(context.getString(R.string.preferences_settings), Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
+        SharedPreferences defaultPrefs = PreferenceManager.getDefaultSharedPreferences(context);
 
-        editor.putBoolean(context.getString(R.string.preferences_app_state), APP_ACTIVE);
-        editor.putBoolean(context.getString(R.string.preferences_ask_everytime), ASK_EVERYTIME);
+        SharedPreferences.Editor editor = pref.edit();
+        SharedPreferences.Editor editorDefault = defaultPrefs.edit();
+
+        editorDefault.putBoolean(context.getString(R.string.preferences_app_state), APP_ACTIVE);
+        editorDefault.putBoolean(context.getString(R.string.preferences_ask_everytime), ASK_EVERYTIME);
         editor.putString(context.getString(R.string.preferences_active_playlist), ACTIVE_PLAYLIST);
         editor.putInt(context.getString(R.string.preferences_playlist_timestamp), PLAYLIST_TIMESTAMP);
         editor.putInt(context.getString(R.string.preferences_last_spotify_login), LAST_SPOTIFY_LOGIN);

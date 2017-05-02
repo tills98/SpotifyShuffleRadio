@@ -17,6 +17,8 @@ import de.till_s.spotifyshuffleradio.service.OverlayService;
 
 public class SpotifyUtils {
 
+    private static final String TAG = SpotifyUtils.class.getSimpleName();
+
     /**
      * Open spotify and start music
      *
@@ -46,19 +48,25 @@ public class SpotifyUtils {
     }
 
     /**
-     * Toggle playback state of spotify (not really usable)
+     * Toggle an {@see Intent#ACTION_MEDIA_BUTTON} from KeyEvent
      *
-     * @param context Context     Android context
+     * @param context   Context     Android context
+     * @param id        int         KeyEvent media key
      */
-    public static void togglePlay(Context context) {
-        Intent i = new Intent(Intent.ACTION_MEDIA_BUTTON);
-        i.setComponent(new ComponentName("com.spotify.music", "com.spotify.music.internal.receiver.MediaButtonReceiver"));
-        i.putExtra(Intent.EXTRA_KEY_EVENT, new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_PLAY));
+    private static void toggleKey(Context context, int id) {
+        String componentPackage = "com.spotify.music";
+        String componentReceiver = "com.spotify.music.internal.receiver.MediaButtonReceiver";
+        ComponentName componentName = new ComponentName(componentPackage, componentReceiver);
+        Intent i = null;
+
+        i = new Intent(Intent.ACTION_MEDIA_BUTTON);
+        i.setComponent(componentName);
+        i.putExtra(Intent.EXTRA_KEY_EVENT, new KeyEvent(KeyEvent.ACTION_DOWN, id));
         context.sendOrderedBroadcast(i, null);
 
         i = new Intent(Intent.ACTION_MEDIA_BUTTON);
-        i.setComponent(new ComponentName("com.spotify.music", "com.spotify.music.internal.receiver.MediaButtonReceiver"));
-        i.putExtra(Intent.EXTRA_KEY_EVENT, new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_MEDIA_PLAY));
+        i.setComponent(componentName);
+        i.putExtra(Intent.EXTRA_KEY_EVENT, new KeyEvent(KeyEvent.ACTION_UP, id));
         context.sendOrderedBroadcast(i, null);
     }
 

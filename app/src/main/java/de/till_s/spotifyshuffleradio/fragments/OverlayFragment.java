@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import de.till_s.spotifyshuffleradio.R;
-import de.till_s.spotifyshuffleradio.Settings;
 import de.till_s.spotifyshuffleradio.helper.spotify.utils.SpotifyUtils;
+import de.till_s.spotifyshuffleradio.utils.Settings;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -16,6 +16,11 @@ public class SpotifyAuthHelper {
 
     public static final int REQUEST_CODE = 1337;
 
+    /**
+     * Create an auth request to login user
+     *
+     * @param activity Activity        Fallback activity after login
+     */
     public void createAuthRequest(Activity activity) {
         AuthenticationRequest.Builder authReqBuilder = new AuthenticationRequest.Builder(SpotifyAppData.CLIENT_ID, AuthenticationResponse.Type.TOKEN, SpotifyAppData.REDIRECT_URI);
 

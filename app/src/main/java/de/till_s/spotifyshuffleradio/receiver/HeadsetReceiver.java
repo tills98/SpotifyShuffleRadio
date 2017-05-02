@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.util.Log;
 
-import de.till_s.spotifyshuffleradio.Settings;
 import de.till_s.spotifyshuffleradio.helper.spotify.utils.SpotifyUtils;
+import de.till_s.spotifyshuffleradio.utils.Settings;
 
 /**
  * Created by Till on 27.04.2017.

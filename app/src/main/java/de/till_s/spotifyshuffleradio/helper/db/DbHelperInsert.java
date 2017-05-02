@@ -14,10 +14,17 @@ public class DbHelperInsert {
     private SQLiteDatabase writableDatabase = null;
     private ContentValues values;
 
+    /**
+     * @param writableDatabase
+     */
     public DbHelperInsert(SQLiteDatabase writableDatabase) {
         this.writableDatabase = writableDatabase;
     }
 
+    /**
+     * @param column
+     * @param value
+     */
     public void addString(String column, String value) {
         if (values == null) {
             values = new ContentValues();
@@ -26,10 +33,19 @@ public class DbHelperInsert {
         values.put(column, value);
     }
 
+    /**
+     *
+     * @param values
+     */
     public void setContentValues(ContentValues values) {
         this.values = values;
     }
 
+    /**
+     * Insert data into database
+     *
+     * @return Last insert id
+     */
     public long commit() {
         return writableDatabase.insert(SpotifyPlaylistContract.SpoitfyPlaylistEntry.TABLE_NAME, null, values);
     }

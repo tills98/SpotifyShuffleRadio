@@ -19,7 +19,7 @@
     <string name="ask_title">Start Spotify Shuffle Radio?</string>
     <string name="ask_no_button">No</string>
     <string name="ask_description">Press to play your playlist</string>
-    <string name="title_settings">Settings</string>
+    <string name="nav_title_settings">Settings</string>
     <string name="settings_listen_everytime">Ask before start</string>
     <string name="spotify_player_error">Could not initialize Spotify!</string>
 </resources>
